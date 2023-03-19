@@ -14,6 +14,7 @@ class VirementsScreen extends StatelessWidget {
       backgroundColor: screenBgColor,
       appBar: AppBar(
         backgroundColor: kcPrimaryColor,
+        automaticallyImplyLeading: false,
         elevation: 0.0,
         actions: [
           acctionIcon(Icons.power_settings_new, () {}),
@@ -29,18 +30,24 @@ class VirementsScreen extends StatelessWidget {
             height: 70,
             child: Column(
               children: [
-                Text(
-                  'VIREMENTS',
-                  style: stWhite70020.copyWith(fontSize: 26),
-                ),
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 70),
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: 3,
-                    color: Colors.white,
+                SizedBox(
+                  width: 200,
+                  child: Column(
+                    children: [
+                      Text(
+                        'VIREMENTS',
+                        style: stWhite70020,
+                      ),
+                      const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: 65,
+                          height: 3,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 )
               ],

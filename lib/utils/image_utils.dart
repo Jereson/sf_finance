@@ -11,6 +11,8 @@ const imgPerson = '$baseImageUrl/person.png';
 const imgSuivi = '$baseImageUrl/suivi.png';
 const imgViremenInt = '$baseImageUrl/virement-int.png';
 const imgVirement = '$baseImageUrl/virement.png';
+const imgCurve = '$baseImageUrl/curve.png';
+const imgBell = '$baseImageUrl/bell.png';
 
 const svgVirement = '$baseSvgUrl/virement.svg';
 const svgvirementInt = '$baseSvgUrl/virement-int.svg';
@@ -39,9 +41,8 @@ const svgDoc = '$baseSvgUrl/doc.svg';
 const svgScreen = '$baseSvgUrl/screen.svg';
 const svgPercent = '$baseSvgUrl/percent.svg';
 
-
-
-
-
-
-
+const svgBell = '$baseSvgUrl/bell.svg';
+const svgCurve = '$baseSvgUrl/curve.svg';
+const svgSg = '$baseSvgUrl/sg.svg';
+const sgvTalk = '$baseSvgUrl/talk.svg';
+const svgVisible = '$baseSvgUrl/visible.svg';

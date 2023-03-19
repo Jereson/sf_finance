@@ -33,17 +33,37 @@ final stBlcak60017 = GoogleFonts.sourceSansPro(
 
 final st00002B60018 = GoogleFonts.montserrat(
     fontWeight: FontWeight.w600, fontSize: 18, color: kc00002B);
+final stA1A1A150016 = GoogleFonts.sourceSansPro(
+    fontWeight: FontWeight.w500, fontSize: 16, color: kcA1A1A1);
 
 final st00002B50016 = GoogleFonts.montserrat(
     fontWeight: FontWeight.w500, fontSize: 16, color: kc00002B);
 final st00002B50020 = GoogleFonts.montserrat(
     fontWeight: FontWeight.w500, fontSize: 20, color: kc00002B);
+final st00002B60016 = GoogleFonts.montserrat(
+    fontWeight: FontWeight.w600, fontSize: 16, color: kc00002B);
 
 final st00002B40018 = GoogleFonts.montserrat(
     fontWeight: FontWeight.w400, fontSize: 18, color: kc00002B);
 
 final stWhite70020 = GoogleFonts.montserrat(
     fontWeight: FontWeight.w700, fontSize: 20, color: kcFFFFFF);
+
+  
+
+final st58536E50020 = GoogleFonts.montserrat(
+    fontWeight: FontWeight.w500, fontSize: 20, color: kc58536E);
+
+final st73737360020 = GoogleFonts.sourceSansPro(
+    fontWeight: FontWeight.w600, fontSize: 20, color: kc737373);
+
+final st00002B60020 = GoogleFonts.montserrat(
+    fontWeight: FontWeight.w600,
+    fontSize: 20,
+    color: kc00002B.withOpacity(0.82));
+
+final st4D4D4D50024 = GoogleFonts.montserrat(
+    fontWeight: FontWeight.w500, fontSize: 24, color: kc4D4D4D);
 
 final st387E3C70030 = GoogleFonts.montserrat(
     fontWeight: FontWeight.w700, fontSize: 30, color: kc387E3C);

@@ -108,10 +108,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       return const CompteScreen(currentIndex: 1);
                     })),
                   ),
-                  const SizedBox(height: 30),
-                  Text('Par procuration', style: st00002B60014),
-                  const SizedBox(height: 10),
-                  const HomeCardWidget(),
+                  //TODO:: Uncomment oute
+                  // const SizedBox(height: 30),
+                  // Text('Par procuration', style: st00002B60014),
+                  // const SizedBox(height: 10),
+                  // const HomeCardWidget(),
                   const SizedBox(height: 30),
                   Center(
                     child: Container(

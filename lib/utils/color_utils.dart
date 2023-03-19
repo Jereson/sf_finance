@@ -10,5 +10,12 @@ const kc387E3C = Color(0xFF387E3C);
 const kc7F7F7F = Color(0xFF7F7F7F);
 const kcD9D9D9 = Color(0xFFD9D9D9);
 const kcBlack = Colors.black;
-
-
+const kc58536E = Color(0xFF58536E);
+const kc8A888B = Color(0xFF8A888B);
+const kcA1A1A1 = Color(0xFFA1A1A1);
+const kc737373 = Color(0xFF737373);
+const kcC7C4C4 = Color(0xFFC7C4C4);
+const kcE0E0E0 = Color(0xFFE0E0E0);
+const kcDFDFDF = Color(0xFFDFDFDF);
+const kcEDEDED = Color(0xFFEDEDED);
+const kc4D4D4D = Color(0xFF4D4D4D);

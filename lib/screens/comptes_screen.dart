@@ -26,7 +26,10 @@ class _CompteScreenState extends State<CompteScreen> {
           style: stWhite70020,
         ),
         actions: [
-          acctionIcon(Icons.search_outlined, () {}),
+          Transform.translate(
+            offset: const Offset(10, 0),
+            child: acctionIcon(Icons.search_outlined, () {}),
+          ),
           acctionIcon(Icons.more_vert, () {}),
         ],
       ),

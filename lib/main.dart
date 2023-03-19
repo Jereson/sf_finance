@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:sg_finance/nav_screen.dart';
+import 'package:sg_finance/getit.dart';
+import 'package:sg_finance/screens/landing_page_screen.dart';
 import 'package:sg_finance/routes.dart';
 
 void main() {
+  setUp();
   runApp(const MyApp());
 }
 
@@ -15,8 +17,10 @@ class MyApp extends StatelessWidget {
       title: 'Sg Finance',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      home: const NavScreen(),
-      routes:routes ,
+      // home: const AuthScreen(),
+      home: const LandingPageScreen(),
+
+      routes: routes,
     );
   }
 }

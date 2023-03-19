@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:sg_finance/utils/color_utils.dart';
 import 'package:sg_finance/utils/image_utils.dart';
 import 'package:sg_finance/utils/style_utils.dart';
@@ -15,6 +13,7 @@ class VosCartesScreen extends StatelessWidget {
       backgroundColor: screenBgColor,
       appBar: AppBar(
         backgroundColor: kcPrimaryColor,
+        automaticallyImplyLeading: false,
         elevation: 0.0,
         actions: [
           acctionIcon(Icons.power_settings_new, () {}),
@@ -28,18 +27,24 @@ class VosCartesScreen extends StatelessWidget {
             height: 70,
             child: Column(
               children: [
-                Text(
-                  'VOS CARTES',
-                  style: stWhite70020.copyWith(fontSize: 26),
-                ),
-                const SizedBox(height: 10),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Container(
-                    margin: const EdgeInsets.only(right: 70),
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: 3,
-                    color: Colors.white,
+                SizedBox(
+                  width: 200,
+                  child: Column(
+                    children: [
+                      Text(
+                        'VOS CARTES',
+                        style: stWhite70020,
+                      ),
+                      const SizedBox(height: 10),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          width: 60,
+                          height: 3,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
                   ),
                 )
               ],
@@ -58,7 +63,7 @@ class VosCartesScreen extends StatelessWidget {
                 color: kcPrimaryColor,
                 borderRadius: BorderRadius.circular(50),
               ),
-              child: Text('Voir tous mes comptes',
+              child: Text('Personnaliser ma carter',
                   style: stBlcak60017.copyWith(color: Colors.white)),
             ),
           ),
@@ -102,7 +107,7 @@ class VosCatesWidget extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('CB Visa', style: st00002B60014),
+                  Text('CB Visa Infinite', style: st00002B60014),
                   Row(
                     children: [
                       Row(
