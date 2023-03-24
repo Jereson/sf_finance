@@ -20,7 +20,7 @@ class SoldeActuelTab extends StatelessWidget {
               const SizedBox(height: 20),
               Stack(clipBehavior: Clip.none, children: [
                 Text(
-                    '${cVm.compteAmount.replaceAllMapped(reg, addCommaToString)} €',
+                    '${cVm.compteAmount.replaceAllMapped(reg, addSpaceToString)},00 €',
                     style: st387E3C70030),
                 const Positioned(
                     top: -10,
@@ -36,13 +36,14 @@ class SoldeActuelTab extends StatelessWidget {
                   child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
                       padding: const EdgeInsets.all(20),
-                      itemCount: compteData.length,
+                      itemCount: cVm.compteData.length,
                       itemBuilder: (context, index) {
+                        // 
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              compteData[index].date!,
+                              cVm.compteData[index].date!,
                               style: stBlackOpacity50010.copyWith(fontSize: 15),
                             ),
                             const SizedBox(height: 8),
@@ -70,20 +71,20 @@ class SoldeActuelTab extends StatelessWidget {
                                     width: 44,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: compteData[index].color),
+                                        color: cVm.compteData[index].color),
                                     child: Image.asset(
-                                        compteData[index].imageUrl!),
+                                        cVm.compteData[index].imageUrl!),
                                   ),
                                   const SizedBox(width: 10),
                                   Expanded(
-                                    child: Text(compteData[index].title!,
+                                    child: Text(cVm.compteData[index].title!,
                                         style: st00002B40015),
                                   ),
                                   Text(
-                                    compteData[index].amoount!,
+                                    '${cVm.compteData[index].amoount!.replaceAllMapped(reg, addSpaceToString)},00 €',
                                     style: st00002B60014.copyWith(
                                         color:
-                                            compteData[index].amoount![0] == '-'
+                                            cVm.compteData[index].amoount![0] == '-'
                                                 ? kcBlack
                                                 : kc387E3C),
                                   ),
@@ -112,33 +113,3 @@ class CompteDate {
       this.amoount,
       this.color});
 }
-
-List<CompteDate> compteData = [
-  CompteDate(
-      title:
-          'VIR INST RE 354077769381 DE: Francois BABEL DATE: 09/02/2023 05:37',
-      imageUrl: imgEuro,
-      amoount: '100,00 €',
-      date: '09/02/2023',
-      color: Colors.blue),
-  CompteDate(
-      title: 'FRAIS SUR SATD DE 5 049,01      EUROS SIP SAINT-OUEN-SUR-SEINE',
-      imageUrl: imgHand,
-      amoount: '-100,00 €',
-      date: '09/02/2023',
-      color: Colors.amberAccent),
-  CompteDate(
-      title:
-          'FRAIS VIR INSTANTANE ELEC 351971564343 REF032023019597982590000001',
-      imageUrl: imgEuro,
-      amoount: '-0,80 €',
-      date: '09/02/2023',
-      color: Colors.pink),
-  CompteDate(
-      title:
-          'VIR INST RE 354077769381 DE: Francois BABEL DATE: 09/02/2023 05:37',
-      imageUrl: imgEuro,
-      amoount: '100,00 €',
-      date: '09/02/2023',
-      color: Colors.red)
-];

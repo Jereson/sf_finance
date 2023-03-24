@@ -121,6 +121,7 @@ class CustomButtonNav extends StatelessWidget {
                 NavButton(
                   title: 'Home',
                   iconUrl: 'home',
+                  iconUrl1: 'home1',
                   isIndex: cVm.currentVanIndex == 0 ? true : false,
                   callback: () {
                     print('object');
@@ -130,6 +131,7 @@ class CustomButtonNav extends StatelessWidget {
                 NavButton(
                   title: 'Virements',
                   iconUrl: 'virement',
+                  iconUrl1: 'virement1',
                   isIndex: cVm.currentVanIndex == 1 ? true : false,
                   callback: () {
                     cVm.changeNavIndex(1);
@@ -138,6 +140,7 @@ class CustomButtonNav extends StatelessWidget {
                 NavButton(
                   title: 'Cartes',
                   iconUrl: 'cartes',
+                  iconUrl1: 'cartes1',
                   isIndex: cVm.currentVanIndex == 2 ? true : false,
                   callback: () {
                     cVm.changeNavIndex(2);
@@ -146,6 +149,7 @@ class CustomButtonNav extends StatelessWidget {
                 NavButton(
                   title: 'Contact',
                   iconUrl: 'contact',
+                  iconUrl1: 'contact1',
                   isIndex: cVm.currentVanIndex == 3 ? true : false,
                   callback: () {
                     cVm.changeNavIndex(3);
@@ -154,6 +158,7 @@ class CustomButtonNav extends StatelessWidget {
                 NavButton(
                   title: 'Autres',
                   iconUrl: 'autres',
+                  iconUrl1: 'autres1',
                   isIndex: cVm.currentVanIndex == 4 ? true : false,
                   callback: () {
                     cVm.changeNavIndex(4);
@@ -169,12 +174,14 @@ class CustomButtonNav extends StatelessWidget {
 class NavButton extends StatelessWidget {
   final String title;
   final String iconUrl;
+  final String iconUrl1;
   final bool isIndex;
   final VoidCallback callback;
   const NavButton(
       {super.key,
       required this.title,
       required this.iconUrl,
+      required this.iconUrl1,
       this.isIndex = false,
       required this.callback});
 
@@ -187,20 +194,27 @@ class NavButton extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Image.asset(
-              //   'assets/nav/$iconUrl.png',
-              //   color: isIndex ? kcPrimaryColor : Colors.black,
-              //   height: 20,
-              // ),
               isIndex
-                  ? SvgPicture.asset('assets/svg/$iconUrl.svg',
-                      colorFilter: const ColorFilter.mode(
-                          kcPrimaryColor, BlendMode.srcIn),
-                      height: 20)
-                  : SvgPicture.asset('assets/svg/$iconUrl.svg',
-                      colorFilter:
-                          const ColorFilter.mode(Colors.black, BlendMode.srcIn),
-                      height: 20),
+                  ? Image.asset(
+                      'assets/nav/$iconUrl1.png',
+                      // color: kcPrimaryColor,
+                      height: 20,
+                    )
+                  : Image.asset(
+                      'assets/nav/$iconUrl.png',
+                      // color: Colors.black,
+                      height: 20,
+                    ),
+
+              // isIndex
+              //     ? SvgPicture.asset('assets/svg/$iconUrl.svg',
+              //         colorFilter: const ColorFilter.mode(
+              //             kcPrimaryColor, BlendMode.srcIn),
+              //         height: 20)
+              //     : SvgPicture.asset('assets/svg/$iconUrl.svg',
+              //         colorFilter:
+              //             const ColorFilter.mode(Colors.black, BlendMode.srcIn),
+              //         height: 20),
               const SizedBox(height: 4),
               Text(
                 title,

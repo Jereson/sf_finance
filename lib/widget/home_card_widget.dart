@@ -50,7 +50,7 @@ class HomeCardWidget extends StatelessWidget {
                           Text('Compte Bancaire', style: st00002B60014),
                           const Spacer(),
                           Text(
-                              '${cVm.compteAmount.replaceAllMapped(reg, addCommaToString)} €',
+                              '${cVm.compteAmount.replaceAllMapped(reg, addSpaceToString)},00 €',
                               style: st00002B60014.copyWith(color: kc387E3C))
                         ],
                       ),
@@ -115,7 +115,7 @@ class HomeCardWidget extends StatelessWidget {
                       ),
                       const Spacer(),
                       Text(
-                          '${cVm.cbAmount.replaceAllMapped(reg, addCommaToString)} €',
+                          '${cVm.cbAmount.replaceAllMapped(reg, addSpaceToString)},00 €',
                           style: st00002B60014.copyWith(color: kc387E3C))
                     ],
                   ),

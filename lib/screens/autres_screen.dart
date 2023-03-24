@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sg_finance/screens/change_solde_data_screen.dart';
 import 'package:sg_finance/screens/change_value.dart';
 import 'package:sg_finance/utils/color_utils.dart';
 import 'package:sg_finance/utils/image_utils.dart';
@@ -81,7 +82,8 @@ class AutresScreen extends StatelessWidget {
                       if (index == 7) {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
-                          return const ChangeVlaueScreen();
+                          // return const ChangeVlaueScreen();
+                          return ChangeSoldeDataScreen();
                         }));
                       }
                     },
@@ -131,7 +133,7 @@ class AutresData {
   const AutresData({this.title, this.imageUrl});
 }
 
-List<AutresData> autresData =const [
+List<AutresData> autresData = const [
   AutresData(title: 'Gestion de budget', imageUrl: svgChart),
   AutresData(title: 'RIB', imageUrl: svgAib),
   AutresData(title: 'Paylib Entre Amis', imageUrl: svgPaylib),

@@ -52,7 +52,7 @@ class VosCartesScreen extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           const VosCatesWidget(),
-          const VosCatesWidget(),
+          // const VosCatesWidget(),
           const SizedBox(height: 40),
           Center(
             child: Container(

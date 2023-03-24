@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sg_finance/getit.dart';
+import 'package:sg_finance/screens/change_solde_data_screen.dart';
 import 'package:sg_finance/screens/landing_page_screen.dart';
 import 'package:sg_finance/routes.dart';
 
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Sg Finance',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(),
-      // home: const AuthScreen(),
+      // home: const ChangeSoldeDataScreen(),
       home: const LandingPageScreen(),
 
       routes: routes,

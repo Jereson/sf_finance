@@ -25,7 +25,7 @@ class AVenirTab extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       Text(
-                          '${cVm.cbAmount.replaceAllMapped(reg, addCommaToString)} €',
+                          '${cVm.cbAmount.replaceAllMapped(reg, addSpaceToString)},00 €',
                           style: st387E3C70030),
                       const Positioned(
                           top: -10,
