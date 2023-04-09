@@ -112,7 +112,7 @@ class VosCatesWidget extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text('N°    ****4809', style: st1E1E1E50014),
+                          Text('N°    ****', style: st1E1E1E50014),
                           const SizedBox(width: 10),
                           Container(
                             padding: const EdgeInsets.symmetric(

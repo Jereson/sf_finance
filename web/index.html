@@ -40,7 +40,27 @@
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
   <script src="splash/splash.js"></script>
 </head>
-<body>  <picture id="splash">
+<body> 
+  <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.19.1/firestore-app.js"></script>
+  
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyBXRpcgau5-Dx2HgExveE23Z1Vl2Vjmq58",
+      authDomain: "fs-finance-fd527.firebaseapp.com",
+      projectId: "fs-finance-fd527",
+      storageBucket: "fs-finance-fd527.appspot.com",
+      messagingSenderId: "99868031464",
+      appId: "1:99868031464:web:70a298e6ce64089172cc5d",
+      measurementId: "G-ZJE50Z53PZ"
+    };
+
+    initializeApp(firebaseConfig);
+  </script>
+
+  
+
+  <picture id="splash">
       <source srcset="splash/img/light-1x.png 1x, splash/img/light-2x.png 2x, splash/img/light-3x.png 3x, splash/img/light-4x.png 4x" media="(prefers-color-scheme: light)">
       <source srcset="splash/img/dark-1x.png 1x, splash/img/dark-2x.png 2x, splash/img/dark-3x.png 3x, splash/img/dark-4x.png 4x" media="(prefers-color-scheme: dark)">
       <img class="center" aria-hidden="true" src="splash/img/light-1x.png" alt="">
@@ -60,6 +80,8 @@
       });
     });
   </script>
+
+ 
 
 
 </body></html>

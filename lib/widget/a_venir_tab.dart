@@ -25,7 +25,7 @@ class AVenirTab extends StatelessWidget {
                     clipBehavior: Clip.none,
                     children: [
                       Text(
-                          '${cVm.cbAmount.replaceAllMapped(reg, addSpaceToString)},00 €',
+                          '${cVm.cbAmount!.replaceAllMapped(reg, addSpaceToString)},${cVm.soldeAcutelAmountModel!.venirCent}€',
                           style: st387E3C70030),
                       const Positioned(
                           top: -10,
@@ -74,7 +74,7 @@ class AVenirTab extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Text('N°    ****4809',
+                                      Text('N°    ****2675',
                                           style: st1E1E1E50014),
                                       const SizedBox(width: 10),
                                       Container(

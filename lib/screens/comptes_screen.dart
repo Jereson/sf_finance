@@ -23,7 +23,7 @@ class _CompteScreenState extends State<CompteScreen> {
         centerTitle: true,
         title: Text(
           'Compte Bancaire',
-          style: stWhite70020,
+          style: stWhite70020.copyWith(fontSize: 16),
         ),
         actions: [
           Transform.translate(

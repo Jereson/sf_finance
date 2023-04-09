@@ -8,8 +8,8 @@ final navTextStyle =
 final stBlackOpacity50010 = GoogleFonts.sourceSansPro(
     fontWeight: FontWeight.w500, fontSize: 10, color: kcBlack.withOpacity(0.6));
 
-final st00002B40015 = GoogleFonts.montserrat(
-    fontWeight: FontWeight.w500, fontSize: 12, color: kc00002B);
+final st00002B60011 = GoogleFonts.montserrat(
+    fontWeight: FontWeight.w600, fontSize: 11, color: kc00002B);
 
 final st00002B50012 = GoogleFonts.montserrat(
     fontWeight: FontWeight.w500, fontSize: 12, color: kc00002B);
@@ -48,8 +48,6 @@ final st00002B40018 = GoogleFonts.montserrat(
 
 final stWhite70020 = GoogleFonts.montserrat(
     fontWeight: FontWeight.w700, fontSize: 20, color: kcFFFFFF);
-
-  
 
 final st58536E50020 = GoogleFonts.montserrat(
     fontWeight: FontWeight.w500, fontSize: 20, color: kc58536E);

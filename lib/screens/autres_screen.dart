@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sg_finance/screens/change_solde_data_screen.dart';
+import 'package:sg_finance/screens/change_home.dart';
+import 'package:sg_finance/screens/change_transaction_data_screen.dart';
 import 'package:sg_finance/screens/change_value.dart';
 import 'package:sg_finance/utils/color_utils.dart';
 import 'package:sg_finance/utils/image_utils.dart';
@@ -82,8 +83,9 @@ class AutresScreen extends StatelessWidget {
                       if (index == 7) {
                         Navigator.of(context)
                             .push(MaterialPageRoute(builder: (context) {
+                          return ChangeHomeScreen();
                           // return const ChangeVlaueScreen();
-                          return ChangeSoldeDataScreen();
+                          // return ChangeSoldeDataScreen();
                         }));
                       }
                     },

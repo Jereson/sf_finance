@@ -1,64 +1,137 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:ndialog/ndialog.dart';
 import 'package:sg_finance/model/base_view_model.dart';
-import 'package:sg_finance/utils/color_utils.dart';
+import 'package:sg_finance/model/compte_bancaire.dart';
+import 'package:sg_finance/model/solde_acutel_amount_model.dart';
 import 'package:intl/intl.dart';
-import 'package:sg_finance/utils/image_utils.dart';
-import 'package:sg_finance/widget/solde_actuel_tab.dart';
+import 'package:sg_finance/utils/color_utils.dart';
+import 'package:sg_finance/widget/custom_loader.dart';
 
 class ChangeValueVm extends BaseViewModel {
-  String compteAmount = '0';
-  String cbAmount = '0';
-  final compteController = TextEditingController();
-  final cbController = TextEditingController();
-  final firstItemAmountController = TextEditingController();
-  final secondItemAmountController = TextEditingController();
-  final thirdItemAmountController = TextEditingController();
-  final fourthItemAmountController = TextEditingController();
+  SoldeAcutelAmountModel? soldeAcutelAmountModel;
+  List<CompteBancaireModel> compteBancaireModel = [];
+  String? soldeActuelAmount;
+  String? cbAmount;
+  final soldeActuelAmountController = TextEditingController();
+  final venirAmountController = TextEditingController();
+  String? soldeAcutelId;
 
-  DateTime? selectedFirstDate;
-  final newFirstDateFormat = DateFormat("dd/MM/yyyy");
-  String? firstDate;
+  final txnAmountController = TextEditingController();
+  final txnTitleController = TextEditingController();
+  String? txtId;
 
-  DateTime? selectedSecondDate;
-  final newSecondDateFormat = DateFormat("dd/MM/yyyy");
-  String? secondDate;
-
-  DateTime? selectedThirdDate;
-  final newThirdDateFormat = DateFormat("dd/MM/yyyy");
-  String? thirdDate;
-
-  DateTime? selectedFourthDate;
-  final newFourthDateFormat = DateFormat("dd/MM/yyyy");
-  String? fourthDate;
+  DateTime? selectedDate;
+  final newDateFormat = DateFormat("dd/MM/yyyy");
+  String? date;
 
   int currentVanIndex = 0;
 
-  void setCompteAmount() {
-    compteController.text = compteAmount;
-  }
-
-  void setcbAmount() {
-    cbController.text = cbAmount;
-  }
-
-  void changeCompteAmount() {
-    compteAmount = compteController.text;
-    setState();
-  }
-
-  changeCbAcount() {
-    cbAmount = cbController.text;
-    setState();
-  }
-
   void changeNavIndex(int index) {
     currentVanIndex = index;
-    // print(currentVanIndex);
     setState();
   }
 
-  Future<void> pickFirstDateOfBirth(BuildContext context) async {
+  void setCompteController() {
+    soldeActuelAmountController.text =
+        '${soldeAcutelAmountModel!.soldeActuelAmount},${soldeAcutelAmountModel!.soldeCent}';
+    venirAmountController.text =
+        '${soldeAcutelAmountModel!.venirAmount},${soldeAcutelAmountModel!.venirCent}';
+    soldeAcutelId = soldeAcutelAmountModel!.id!;
+  }
+
+  void setTransactionController(CompteBancaireModel compteBancaireModel) {
+    txnAmountController.text =
+        '${compteBancaireModel.amount!},${compteBancaireModel.cent}';
+    txnTitleController.text = compteBancaireModel.title!;
+    date = compteBancaireModel.date!;
+    txtId = compteBancaireModel.id!;
+    setState();
+  }
+
+  Future<void> getAmount() async {
+    await amountCollection.get().then((value) {
+      if (value.docs.isNotEmpty) {
+        soldeAcutelAmountModel =
+            SoldeAcutelAmountModel.fromJson(value.docs[0].data());
+        soldeActuelAmount = soldeAcutelAmountModel!.soldeActuelAmount!;
+        cbAmount = soldeAcutelAmountModel!.venirAmount!;
+
+        setState();
+      }
+    });
+  }
+
+  Future<void> getCompteBancaire() async {
+    await transactionCollection.get().then((value) {
+      if (value.docs.isNotEmpty) {
+        compteBancaireModel = [];
+        for (var doc in value.docs) {
+          compteBancaireModel.add(CompteBancaireModel.fromJson(doc.data()));
+        }
+        setState();
+      }
+    });
+  }
+
+  Future<void> changeAmountCollection(
+      BuildContext context, bool isSolde) async {
+    String? soldeAmount;
+    String? soldeCent;
+
+    String? venirAmount;
+    String? venirCent;
+
+    if (soldeActuelAmountController.text.contains(',')) {
+      final spliteText = soldeActuelAmountController.text.split(',');
+      soldeAmount = spliteText.first;
+      soldeCent = spliteText.last;
+    } else {
+      soldeAmount = soldeActuelAmountController.text;
+      soldeCent = '00';
+    }
+
+    if (venirAmountController.text.contains(',')) {
+      final splitText = venirAmountController.text.split(',');
+      venirAmount = splitText.first;
+      venirCent = splitText.last;
+    } else {
+      venirAmount = venirAmountController.text;
+      venirCent = '00';
+    }
+    Map<Object, Object?> soldData = {
+      'soldeActuelAmount': soldeAmount,
+      'soldeCent': soldeCent
+    };
+    Map<Object, Object?> veirData = {
+      'venirAmount': venirAmount,
+      'venirCent': venirCent
+    };
+
+    try {
+      print('The$soldeAcutelId');
+      print(soldData);
+
+      await amountCollection
+          .doc(soldeAcutelId!.trim())
+          .update(isSolde ? soldData : veirData)
+          .showCustomProgressDialog(context)
+          .then((value) async {
+        await getAmount();
+
+        if (context.mounted) {
+          successMessage(context, 'Success', 'Item updated successfully');
+        }
+      }).catchError((error) {
+        print(error);
+
+        successMessage(context, 'Error', 'Failed to update try again', false);
+      });
+    } catch (e) {
+      successMessage(context, 'Error', e.toString());
+    }
+  }
+
+  Future<void> pickDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
         builder: (context, child) {
@@ -75,228 +148,53 @@ class ChangeValueVm extends BaseViewModel {
         firstDate: DateTime(1900),
         lastDate: DateTime(2100));
 
-    if (picked != null && picked != selectedFirstDate) {
-      selectedFirstDate = picked;
-      firstDate = newFirstDateFormat.format(selectedFirstDate!);
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      date = newDateFormat.format(selectedDate!);
 
-      print('selectedDate $selectedFirstDate');
-      print('date $firstDate');
+      print('selectedDate $selectedDate');
+      print('date $date');
       setState();
     }
   }
 
-  Future<void> pickSecondDateOfBirth(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        builder: (context, child) {
-          return Theme(
-              data: Theme.of(context).copyWith(
-                  colorScheme: const ColorScheme.light(
-                primary: kcPrimaryColor,
-                onPrimary: Colors.white,
-                onSurface: Colors.black,
-              )),
-              child: child!);
-        },
-        initialDate: DateTime(1900),
-        firstDate: DateTime(1900),
-        lastDate: DateTime(2100));
-
-    if (picked != null && picked != selectedSecondDate) {
-      selectedSecondDate = picked;
-      secondDate = newSecondDateFormat.format(selectedSecondDate!);
-
-      print('selectedDate $selectedSecondDate');
-      print('date $secondDate');
-      setState();
+  Future<void> changeTransactionContoller(BuildContext context) async {
+    try {
+      if (date != null) {
+        String? txnAmount;
+        String? cent;
+        if (txnAmountController.text.contains(',')) {
+          final splitText = txnAmountController.text.split(',');
+          txnAmount = splitText.first;
+          cent = splitText.last;
+        } else {
+          txnAmount = txnAmountController.text;
+          cent = '00';
+        }
+        await transactionCollection
+            .doc(txtId!.trim())
+            .update({
+              'amount': txnAmount,
+              'date': date,
+              'title': txnTitleController.text,
+              'cent':cent
+            })
+            .showCustomProgressDialog(context)
+            .then((value) async {
+              await getCompteBancaire();
+              if (context.mounted) {
+                successMessage(context, 'Success', 'Item updated successfully');
+              }
+            })
+            .catchError((error) {
+              successMessage(
+                  context, 'Error', 'Failed to update try again', false);
+            });
+      } else {
+        successMessage(context, 'Date', 'Date is required', false);
+      }
+    } catch (e) {
+      successMessage(context, 'Error', 'Error occured try again', false);
     }
-  }
-
-  Future<void> pickThirdDateOfBirth(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        builder: (context, child) {
-          return Theme(
-              data: Theme.of(context).copyWith(
-                  colorScheme: const ColorScheme.light(
-                primary: kcPrimaryColor,
-                onPrimary: Colors.white,
-                onSurface: Colors.black,
-              )),
-              child: child!);
-        },
-        initialDate: DateTime(1900),
-        firstDate: DateTime(1900),
-        lastDate: DateTime(2100));
-
-    if (picked != null && picked != selectedThirdDate) {
-      selectedThirdDate = picked;
-      thirdDate = newThirdDateFormat.format(selectedThirdDate!);
-
-      print('selectedDate $selectedThirdDate');
-      print('date $thirdDate');
-      setState();
-    }
-  }
-
-  Future<void> pickForthDateOfBirth(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        builder: (context, child) {
-          return Theme(
-              data: Theme.of(context).copyWith(
-                  colorScheme: const ColorScheme.light(
-                primary: kcPrimaryColor,
-                onPrimary: Colors.white,
-                onSurface: Colors.black,
-              )),
-              child: child!);
-        },
-        initialDate: DateTime(1900),
-        firstDate: DateTime(1900),
-        lastDate: DateTime(2100));
-
-    if (picked != null && picked != selectedFourthDate) {
-      selectedFourthDate = picked;
-      fourthDate = newFourthDateFormat.format(selectedFourthDate!);
-
-      print('selectedDate $selectedFourthDate');
-      print('date $fourthDate');
-      setState();
-    }
-  }
-
-  void changeFirstListItem(BuildContext context) {
-    print('The date $firstDate and the text ${firstItemAmountController.text}');
-    if (firstDate != null && firstItemAmountController.text.isNotEmpty) {
-      final replacement = [
-        CompteDate(
-            title:
-                'VIR INST RE 354077769381 DE: Francois BABEL DATE: 09/02/2023 05:37',
-            imageUrl: imgEuro,
-            amoount: firstItemAmountController.text,
-            date: firstDate,
-            color: Colors.blue)
-      ];
-      compteData.replaceRange(0, 0, replacement);
-
-      setState();
-      successMessage(context);
-    } else {
-      faildMessage(context);
-    }
-  }
-
-  void changeSecondListItem(BuildContext context) {
-    if (secondDate != null && firstItemAmountController.text.isNotEmpty) {
-      final replacement = [
-        CompteDate(
-            title:
-                'FRAIS SUR SATD DE 5 049,01      EUROS SIP SAINT-OUEN-SUR-SEINE',
-            imageUrl: imgEuro,
-            amoount: secondItemAmountController.text,
-            date: secondDate,
-            color: Colors.blue)
-      ];
-      compteData.replaceRange(1, 1, replacement);
-
-      setState();
-      successMessage(context);
-    } else {
-      faildMessage(context);
-    }
-  }
-
-  void changeThirdListItem(BuildContext context) {
-    if (thirdDate != null && thirdItemAmountController.text.isNotEmpty) {
-      final replacement = [
-        CompteDate(
-            title:
-                'FRAIS VIR INSTANTANE ELEC 351971564343 REF032023019597982590000001',
-            imageUrl: imgEuro,
-            amoount: thirdItemAmountController.text,
-            date: thirdDate,
-            color: Colors.blue)
-      ];
-      compteData.replaceRange(1, 1, replacement);
-
-      setState();
-      successMessage(context);
-    } else {
-      faildMessage(context);
-    }
-  }
-
-  void changeForuthListItem(BuildContext context) {
-    if (fourthDate != null && fourthItemAmountController.text.isNotEmpty) {
-      final replacement = [
-        CompteDate(
-            title:
-                'VIR INST RE 354077769381 DE: Francois BABEL DATE: 09/02/2023 05:37',
-            imageUrl: imgEuro,
-            amoount: fourthItemAmountController.text,
-            date: fourthDate,
-            color: Colors.blue)
-      ];
-      compteData.replaceRange(1, 1, replacement);
-
-      setState();
-      successMessage(context);
-    } else {
-      faildMessage(context);
-    }
-  }
-
-  setValueToNull() {
-    firstDate = null;
-    firstItemAmountController.clear();
-  }
-
-  List<CompteDate> compteData = [
-    CompteDate(
-        title:
-            'VIR INST RE 354077769381 DE: Francois BABEL DATE: 09/02/2023 05:37',
-        imageUrl: imgEuro,
-        amoount: '100',
-        date: '09/02/2023',
-        color: Colors.blue),
-    CompteDate(
-        title: 'FRAIS SUR SATD DE 5 049,01      EUROS SIP SAINT-OUEN-SUR-SEINE',
-        imageUrl: imgHand,
-        amoount: '-100',
-        date: '09/02/2023',
-        color: Colors.amberAccent),
-    CompteDate(
-        title:
-            'FRAIS VIR INSTANTANE ELEC 351971564343 REF032023019597982590000001',
-        imageUrl: imgEuro,
-        amoount: '-043',
-        date: '09/02/2023',
-        color: Colors.pink),
-    CompteDate(
-        title:
-            'VIR INST RE 354077769381 DE: Francois BABEL DATE: 09/02/2023 05:37',
-        imageUrl: imgEuro,
-        amoount: '1200',
-        date: '09/02/2023',
-        color: Colors.red)
-  ];
-
-  void successMessage(BuildContext context) {
-    Flushbar(
-      flushbarPosition: FlushbarPosition.TOP,
-      title: "Updated",
-      message: "Item updated successully",
-      duration: const Duration(seconds: 3),
-    ).show(context);
-  }
-
-  void faildMessage(BuildContext context) {
-    Flushbar(
-      flushbarPosition: FlushbarPosition.TOP,
-      title: "All fields are required",
-      message: "Fill the requre fileds to make update",
-      duration: const Duration(seconds: 3),
-    ).show(context);
   }
 }

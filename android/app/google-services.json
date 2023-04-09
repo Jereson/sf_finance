@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "99868031464",
+    "project_id": "fs-finance-fd527",
+    "storage_bucket": "fs-finance-fd527.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99868031464:android:f4c3693960655e9272cc5d",
+        "android_client_info": {
+          "package_name": "com.sg_finance.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99868031464-ojd8v6of1bkkv2lqmocok5js5n25g8j6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzUdp_xq9HzqjFKPS3-tmWm6muodZjbsk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99868031464-ojd8v6of1bkkv2lqmocok5js5n25g8j6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

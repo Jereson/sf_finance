@@ -5,9 +5,17 @@ import 'package:sg_finance/utils/color_utils.dart';
 import 'package:sg_finance/viewModel/change_value_vm.dart';
 import 'package:sg_finance/widget/random_widget.dart';
 
-class ChangeVlaueScreen extends StatelessWidget {
-  const ChangeVlaueScreen({super.key});
+class ChangeVlaueScreen extends StatefulWidget {
 
+  const ChangeVlaueScreen({super.key,});
+
+  @override
+  State<ChangeVlaueScreen> createState() => _ChangeVlaueScreenState();
+}
+
+class _ChangeVlaueScreenState extends State<ChangeVlaueScreen> {
+  final formKey1 = GlobalKey<FormState>();
+  final formKey2 = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,8 +29,7 @@ class ChangeVlaueScreen extends StatelessWidget {
       body: BaseViewBuilder<ChangeValueVm>(
           model: getIt(),
           initState: (init) {
-            init.setcbAmount();
-            init.setCompteAmount();
+            init.setCompteController();
           },
           builder: (cVm, _) {
             return SingleChildScrollView(
@@ -32,44 +39,61 @@ class ChangeVlaueScreen extends StatelessWidget {
                   children: [
                     Text('Amount'),
                     const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: cVm.compteController,
-                            keyboardType: TextInputType.number,
-                            decoration:
-                                InputDecoration(hintText: 'Enter amount here'),
+                    Form(
+                      key: formKey1,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: cVm.soldeActuelAmountController,
+                              // keyboardType: TextInputType.number,
+                              validator: cVm.amountValidator,
+                              decoration: InputDecoration(
+                                  hintText: 'Enter amount here'),
+                            ),
                           ),
-                        ),
-                        TextButton(
-                            onPressed: () => cVm.changeCompteAmount(),
-                            child: Text(
-                              'Change',
-                              style: TextStyle(color: kcPrimaryColor),
-                            ))
-                      ],
+                          TextButton(
+                              onPressed: () {
+                                if (!formKey1.currentState!.validate()) return;
+                             
+                                cVm.changeAmountCollection(
+                                    context, true);
+                              },
+                              child: Text(
+                                'Change',
+                                style: TextStyle(color: kcPrimaryColor),
+                              ))
+                        ],
+                      ),
                     ),
                     const SizedBox(height: 40),
-                    Text('Visa AMount'),
+                    Text('Visa Amount'),
                     const SizedBox(height: 5),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-                            controller: cVm.cbController,
-                            keyboardType: TextInputType.number,
-                            decoration:
-                                InputDecoration(hintText: 'Enter value here'),
+                    Form(
+                      key: formKey2,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: cVm.venirAmountController,
+                              validator: cVm.amountValidator,
+                              // keyboardType: TextInputType.number,
+                              decoration:
+                                  InputDecoration(hintText: 'Enter value here'),
+                            ),
                           ),
-                        ),
-                        TextButton(
-                            onPressed: () => cVm.changeCbAcount(),
-                            child: Text(
-                              'Change',
-                              style: TextStyle(color: kcPrimaryColor),
-                            ))
-                      ],
+                          TextButton(
+                              onPressed: () {
+                                if (!formKey2.currentState!.validate()) return;
+                                cVm.changeAmountCollection(
+                                    context,  false);
+                              },
+                              child: Text(
+                                'Change',
+                                style: TextStyle(color: kcPrimaryColor),
+                              ))
+                        ],
+                      ),
                     ),
                   ]),
             );
