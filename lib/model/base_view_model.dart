@@ -37,7 +37,7 @@ class BaseViewModel with ChangeNotifier {
       return 'Invalid amount';
     } else if (value.contains(RegExp(r'[a-z]'))) {
       return 'Invalid amount';
-    } else if (value.contains(RegExp(r'[#?!@$%^&*;:<>$^~`./_\\]'))) {
+    } else if (value.contains(RegExp(r'[#?!@$%^&*;:<>$^~`./_\\],'))) {
       return 'Invalid amount';
     } else if (RegExp(',').allMatches(value).length > 1) {
       return 'Must contain 1 of comma (,)';
